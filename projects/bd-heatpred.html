@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BD-HeatPred: A Multi-Source Daily Predictor Dataset for Heatwave Prediction in Bangladesh, February–June, 1991–2025</title>
+    <meta
+      name="description"
+      content="BD-HeatPred: a daily, multi-source predictor dataset for heatwave prediction in Bangladesh, February–June, 1991–2025."
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      /* Page-specific additions; colours come from styles.css */
+      .meta {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+      .status {
+        border-left: 3px solid var(--accent-color);
+        padding: 0.75rem 1rem;
+        margin: 1.5rem 0;
+        background: rgba(74, 116, 185, 0.06);
+        border-radius: 0 6px 6px 0;
+      }
+      .status p {
+        margin: 0.3rem 0;
+      }
+      .glance {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 0.45rem 1.25rem;
+        margin: 1rem 0;
+      }
+      .glance dt {
+        font-weight: 600;
+      }
+      .glance dd {
+        margin: 0;
+        color: var(--text-secondary);
+      }
+      @media (max-width: 600px) {
+        .glance {
+          grid-template-columns: 1fr;
+          gap: 0.1rem;
+        }
+        .glance dd {
+          margin-bottom: 0.6rem;
+        }
+      }
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1rem 0 0.5rem;
+        font-size: 0.88rem;
+      }
+      th,
+      td {
+        border-bottom: 1px solid var(--border-color);
+        padding: 0.45rem 0.6rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        font-weight: 600;
+      }
+      code {
+        font-size: 0.85em;
+        background: rgba(127, 127, 127, 0.1);
+        padding: 0.05rem 0.3rem;
+        border-radius: 3px;
+      }
+      .note {
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+      }
+      main li {
+        margin-bottom: 0.4rem;
+      }
+      details {
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.6rem 0.9rem;
+        margin: 0.6rem 0;
+      }
+      details[open] {
+        padding-bottom: 0.9rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--accent-color);
+      }
+      details.faq summary {
+        color: var(--text-color);
+      }
+      details p:last-child {
+        margin-bottom: 0;
+      }
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 1.4rem 0 0.5rem;
+      }
+      ol.pipeline {
+        padding-left: 1.4rem;
+      }
+      ol.pipeline li {
+        margin-bottom: 0.7rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="../index.html">&larr; Back to homepage</a>
+        <h1>
+          BD-HeatPred: A Multi-Source Daily Predictor Dataset for Heatwave
+          Research in Bangladesh, February&ndash;June, 1991&ndash;2025
+        </h1>
+        <p class="meta">
+          <a href = "https://nafiul2003.github.io/personal_website/ "> Nafiul Islam Naim </a> |<a href = "https://tamim04.github.io/"> Tawyabul Islam Tamim </a> |<a href = "http://www.du.edu.bd/faculty/faculty_details/APMAT/59354"> Suchi Chaki </a>
+        </p>
+      </div>
+    </header>
+    <main>
+      <section id="overview">
+        <div class="status">
+          <p>
+            <strong>Status:</strong> the dataset has been assembled, and quality
+            control and technical validation are in progress. It is not yet
+            publicly released. This page will be updated with download and
+            citation details at release.
+          </p>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          BD-HeatPred is a daily dataset for analyzing  
+          <strong>heatwaves in Bangladesh</strong>. For each of five
+          climatically distinct regions, it brings together 35 atmospheric,
+          land-surface, ocean and climate-mode variables from seven sources.
+
+        <h3>Dataset at a glance</h3>
+        <dl class="glance">
+          <dt>Regions</dt>
+          <dd>
+            Dhaka, Khulna, Rajshahi and Rangpur divisions, and the Rangamati,
+            Bandarban and Khagrachari hill districts (RBK). Ocean variables
+            cover the Bay of Bengal.
+          </dd>
+          <dt>Period</dt>
+          <dd>1991&ndash;2025 (35 years)</dd>
+          <dt>Year window</dt>
+          <dd>
+            1 February &ndash; 30 June 
+          </dd>
+          <dt>Temporal resolution</dt>
+          <dd>Daily (local day, UTC+6), built from hourly data where needed</dd>
+          <dt>Spatial resolution</dt>
+          <dd>
+            Regional area means, computed from source grids of 0.1&deg; to
+            2.5&deg;
+          </dd>
+          <dt>Variables</dt>
+          <dd>35 predictors</dd>
+          <dt>Size</dt>
+          <dd>5,259 daily records per region</dd>
+           
+          <dt>Format</dt>
+          <dd>CSV, one file per region</dd>
+        </dl>
+      </section>
+
+      <section id="why">
+        <h2>Why this dataset?</h2>
+        <p>
+          Pre-monsoon heatwaves are a serious hazard in Bangladesh. April and
+          May are the hottest months, and daily maxima of 36&ndash;40&nbsp;&deg;C
+          are common in the northwest and southwest. Heatwaves are linked to
+          several processes: dry air and subsidence aloft, dry soils, moisture
+          transport from the Bay of Bengal, and large-scale modes such as the
+          MJO and the Indian Ocean Dipole.
+        </p>
+        <p>
+          The data needed to study these processes together are scattered.
+          They sit in different archives (reanalyses, satellite records, index
+          products) with different grids, time steps, time zones and file
+          formats. Each research group has to download, clip, align and derive
+          the variables again. That takes effort, adds room for error, and
+          makes results hard to compare or reproduce.
+        </p>
+        <p>
+          BD-HeatPred does this preparation once, with documented steps. It
+          provides analysis-ready daily tables for each region, all on the same
+          calendar and window.
+        </p>
+      </section>
+
+      <section id="new">seven source
+        <h2>What's new</h2>
+        <ul>
+          <li>
+            <strong>One aligned table from seven sources.</strong> Atmosphere,
+            land surface, Bay of Bengal ocean conditions and climate modes share
+            a single daily calendar for each region.
+          </li>
+          <li>
+            <strong>Built for heatwaves.</strong> Variables were chosen from
+            the literature on Bangladesh heatwaves and cover heat, dryness,
+            circulation, land&ndash;atmosphere coupling and remote drivers. The
+            February&ndash;June window brackets the heat season.
+          </li>
+          <li>
+            <strong>Regional, not national.</strong> Five regions with
+            different climates are kept separate, so regional differences in
+            heatwave drivers can be studied.
+          </li>
+          <li>
+            <strong>Physically derived predictors.</strong> Vapour-pressure
+            deficit, 850&nbsp;hPa wind speed, moisture-flux convergence and
+            temperature advection are computed from hourly fields, with daily
+            mean, minimum and maximum. VPD is computed hourly because it depends
+            non-linearly on temperature, so a daily mean of hourly values differs
+            from VPD computed from daily-mean inputs.
+          </li>
+          <li>
+            <strong>Daily vegetation and water indices.</strong> NDVI and NDWI
+            observations are only available every few days. They are
+            reconstructed to daily values with a weighted Whittaker smoother.
+          </li>
+          <li>
+            <strong>Anomalies on a standard base period.</strong> Anomalies of
+            Bay of Bengal OLR and SST, and the Dipole Mode Index, use the WMO
+            1991&ndash;2020 climate normal.
+          </li>
+          <!-- <li>
+            <strong>A heatwave label and a validation framework.</strong> The
+            label follows the BMD definition. A structured quality-control and
+            validation framework is being applied before release.
+          </li> -->
+        </ul>
+      </section>
+
+      <section id="variables">
+        <h2>Variables</h2>
+        <p>The 35 predictors fall into eight groups.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Variables</th>
+                <th>Scale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tropospheric temperature</td>
+                <td>Temperature at 850 and 500&nbsp;hPa</td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Humidity</td>
+                <td>Relative and specific humidity at 850 and 700&nbsp;hPa</td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Evaporative demand (derived)</td>
+                <td>Vapour-pressure deficit: daily mean, min, max</td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Circulation</td>
+                <td>
+                  Wind components at 850 and 200&nbsp;hPa, 500&nbsp;hPa
+                  geopotential, 500&nbsp;hPa vertical velocity
+                </td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Transport diagnostics (derived)</td>
+                <td>
+                  850&nbsp;hPa wind speed, moisture-flux convergence and
+                  temperature advection: daily mean, min, max each
+                </td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Land surface</td>
+                <td>Surface soil moisture (0&ndash;7&nbsp;cm), NDVI, NDWI</td>
+                <td>Regional</td>
+              </tr>
+              <tr>
+                <td>Bay of Bengal ocean &amp; convection</td>
+                <td>SST and SST anomaly, OLR and OLR anomaly</td>
+                <td>Basin</td>
+              </tr>
+              <tr>
+                <td>Climate modes</td>
+                <td>MJO (RMM1, RMM2, amplitude), Dipole Mode Index</td>
+                <td>Global / basin</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          27 variables differ by region. The 8 basin- and global-scale variables
+          are identical in every regional file.
+        </p>
+        <!-- <p class="note">
+          <strong>Target:</strong> <code>HW_onset</code>, a daily heatwave label.
+          A day is <em>hot</em> when at least 50% of a region's grid points have
+          daily Tmax above 36&nbsp;&deg;C (ERA5-Land 2&nbsp;m temperature). A
+          heatwave is at least three consecutive hot days, following the BMD
+          definition.
+        </p> -->
+
+         
+      </section>
+<!-- 
+      <section id="sources">
+        <h2>Where the data come from</h2>
+        <p>
+          Most variables come from <strong>reanalysis</strong>, where a weather
+          model is combined with observations. Vegetation, water, sea-surface
+          and cloud-related variables come from <strong>satellite</strong>
+          products. The MJO comes from an operational
+          <strong>climate index</strong>. Derived variables and anomalies are
+          computed from these sources.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>Type</th>
+                <th>Used for</th>
+                <th>Native resolution</th>
+                <th>Why chosen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ERA5 (ECMWF / Copernicus)</td>
+                <td>Reanalysis</td>
+                <td>
+                  Upper-air temperature, humidity, winds, geopotential, vertical
+                  velocity; inputs for derived transport variables
+                </td>
+                <td>0.25&deg;, hourly</td>
+                <td>Consistent, long, three-dimensional record of the atmosphere</td>
+              </tr>
+              <tr>
+                <td>ERA5-Land (ECMWF / Copernicus)</td>
+                <td>Land reanalysis</td>
+                <td>Soil moisture; 2&nbsp;m temperature and dewpoint for VPD and the label</td>
+                <td>0.1&deg;, hourly</td>
+                <td>Finer land-surface detail than ERA5</td>
+              </tr>
+              <tr>
+                <td>NOAA Climate Data Record NDVI</td>
+                <td>Satellite</td>
+                <td>NDVI (AVHRR to 2013, VIIRS from 2014)</td>
+                <td>Irregular valid observations</td>
+                <td>Long, consistent vegetation record covering 1991&ndash;2025</td>
+              </tr>
+              <tr>
+                <td>Landsat Collection 2 (via Google Earth Engine)</td>
+                <td>Satellite</td>
+                <td>NDWI</td>
+                <td>30&nbsp;m, 8-day composites</td>
+                <td>Long surface-water record at high spatial detail</td>
+              </tr>
+              <tr>
+                <td>NOAA OISST v2</td>
+                <td>Satellite-based analysis</td>
+                <td>Bay of Bengal SST and anomaly; Dipole Mode Index</td>
+                <td>0.25&deg;, daily</td>
+                <td>High-resolution daily SST for the whole period</td>
+              </tr>
+              <tr>
+                <td>NOAA interpolated OLR</td>
+                <td>Satellite-based</td>
+                <td>Bay of Bengal OLR and anomaly</td>
+                <td>2.5&deg;, daily</td>
+                <td>Standard daily proxy for tropical convection</td>
+              </tr>
+              <tr>
+                <td>Bureau of Meteorology RMM index</td>
+                <td>Climate index</td>
+                <td>MJO RMM1, RMM2, amplitude</td>
+                <td>Daily</td>
+                <td>Operational MJO index (Wheeler &amp; Hendon, 2004)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section> -->
+
+      <!-- <section id="construction">
+        <h2>How the dataset was built</h2>
+        <ol class="pipeline">
+          <li>
+            <strong>Variable selection.</strong> Predictors were chosen from
+            studies of Bangladesh heatwaves and their large-scale drivers,
+            covering heat, moisture, circulation, land surface, the Bay of
+            Bengal and climate modes.
+          </li>
+          <li>
+            <strong>Data acquisition.</strong> Data were downloaded from the
+            Copernicus Climate Data Store, Google Earth Engine, NOAA and the
+            Bureau of Meteorology. Hourly data were used where a daily statistic
+            has to be computed from hourly values.
+          </li>
+          <li>
+            <strong>Time alignment.</strong> Hourly values were grouped into
+            local days (UTC+6) and summarised as daily statistics.
+          </li>
+          <li>
+            <strong>Spatial extraction.</strong> For each region, grid points
+            inside the region were selected. Ocean variables use a Bay of Bengal
+            box, and the Dipole Mode Index uses the standard western and
+            south-eastern Indian Ocean boxes.
+          </li>
+          <li>
+            <strong>Derived variables.</strong> VPD, wind speed, moisture-flux
+            convergence and temperature advection were computed hourly at each
+            grid point. They were then reduced to daily mean, minimum and
+            maximum, and averaged over the region.
+          </li>
+          <li>
+            <strong>Gap filling and reconstruction.</strong> NDVI and NDWI were
+            reconstructed to daily values with a weighted Whittaker smoother
+            (Eilers, 2003). Short gaps in OLR and SST were filled by linear
+            interpolation at each grid point.
+          </li>
+          <li>
+            <strong>Anomalies and indices.</strong> Anomalies are relative to
+            1991&ndash;2020, using a smooth daily climatology for OLR and a
+            monthly climatology for SST. The DMI was computed from OISST and
+            checked against NOAA's published series (monthly correlation 0.85;
+            major IOD years reproduced).
+          </li>
+          <li>
+            <strong>Heatwave label.</strong> Daily Tmax at each ERA5-Land grid
+            point, tested against 36&nbsp;&deg;C and the 50%-of-grid-points rule,
+            then checked for runs of at least three hot days.
+          </li>
+          <li>
+            <strong>Assembly.</strong> The 1 February &ndash; 30 June window was
+            extracted for each year, and one file was written per region: date,
+            35 predictors and the label.
+          </li>
+          <li>
+            <strong>Quality control and validation.</strong> Described in the
+            next section.
+          </li>
+        </ol>
+      </section> -->
+
+    
+
+      <!-- <section id="uses">
+        <h2>What researchers can use it for</h2>
+        <ul>
+          <li>Heatwave onset prediction at daily to sub-seasonal lead times, including with machine-learning models</li>
+          <li>Analysis of heatwave drivers and how they differ between regions</li>
+          <li>Land&ndash;atmosphere coupling during the pre-monsoon, such as soil moisture, VPD and vegetation</li>
+          <li>Influence of the Bay of Bengal, the MJO and the Indian Ocean Dipole on Bangladesh heat</li>
+          <li>Circulation patterns before and during heatwaves</li>
+        </ul>
+
+        <h3>Things to know before using it</h3>
+        <ul>
+          <li>
+            <strong>Seasonal segments.</strong> The record is 35 separate
+            February&ndash;June seasons, not a continuous series. Do not compute
+            lags or differences across the gap from 30 June to 1 February.
+          </li>
+          <li>
+            <strong>Regional means, not grids.</strong> Each value is an area
+            average for a region.
+          </li>
+          <li>
+            <strong>Not included:</strong> precipitation, clouds, surface
+            radiation, surface pressure and land-surface temperature. OLR is
+            available only over the Bay of Bengal.
+          </li>
+          <li>
+            <strong>Overlapping variables.</strong> Some variables carry similar
+            information, for example NDVI and NDWI, or mean and maximum VPD.
+            Keep this in mind for feature selection.
+          </li>
+          <li>
+            <strong>Reanalysis relationships.</strong> Agreement among ERA5
+            variables partly reflects the underlying model, and is not
+            independent evidence.
+          </li>
+          <li>
+            <strong>Target leakage.</strong> The label comes from 2&nbsp;m
+            temperature, so lower-tropospheric temperature is closely related
+            to it. Use lead times that match your forecasting setup.
+          </li>
+        </ul>
+      </section> -->
+<!-- 
+      <section id="access">
+        <h2>Download &amp; citation</h2>
+        <p>
+          The dataset is not yet publicly available. It will be released with a
+          persistent identifier (DOI), documentation and a recommended
+          citation once validation is complete.
+        </p>
+        <p class="note">For early access or questions, please get in touch.</p>
+      </section> -->
+
+      <!-- <section id="faq">
+        <h2>Frequently asked questions</h2>
+
+        <details class="faq">
+          <summary>What is the purpose of this dataset?</summary>
+          <p>
+            To provide analysis-ready daily predictors for studying and
+            predicting pre-monsoon heatwaves in Bangladesh, so researchers do
+            not have to collect and harmonise the data themselves.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Who can use it?</summary>
+          <p>
+            Climate scientists, meteorologists and machine-learning
+            researchers working on heat extremes, South Asian climate
+            variability or land&ndash;atmosphere interaction.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>What region does it cover?</summary>
+          <p>
+            Five regions of Bangladesh: the Dhaka, Khulna, Rajshahi and Rangpur
+            divisions, and the Rangamati&ndash;Bandarban&ndash;Khagrachari hill
+            districts. It also includes Bay of Bengal ocean variables and
+            global climate-mode indices.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>What time period does it cover?</summary>
+          <p>
+            1 February to 30 June of every year from 1991 to 2025, daily: 5,259
+            days per region.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>How many variables are included?</summary>
+          <p>
+            35 predictor variables plus one heatwave label. See the
+            <a href="#variables">variable catalog</a>.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Are the variables downloaded directly or derived?</summary>
+          <p>
+            Both. About half are taken directly from the source products. The
+            rest are derived: VPD, wind speed, moisture-flux convergence,
+            temperature advection, anomalies, the DMI and daily-reconstructed
+            NDVI/NDWI.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>How were variables with different resolutions aligned?</summary>
+          <p>
+            All variables were brought to the same daily time step in local
+            time (UTC+6). Gridded data were averaged over the grid points inside
+            each region, or over the Bay of Bengal box for ocean variables.
+            Satellite indices observed every few days were reconstructed to
+            daily values.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>How were missing values handled?</summary>
+          <p>
+            NDVI and NDWI gaps were filled with a weighted Whittaker smoother,
+            and short OLR and SST gaps with linear interpolation. The final
+            files have no missing values. Before release, the plan is to report
+            how much of each gap-filled series comes from original observations.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>How was data quality checked?</summary>
+          <p>
+            Through a staged framework of integrity, plausibility, consistency,
+            temporal, physical and cross-source checks. See
+            <a href="#validation">Quality control &amp; validation</a>.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Can I use it for machine learning?</summary>
+          <p>
+            Yes. It was designed as ML-ready tabular data with a binary heatwave
+            label. Mind the seasonal segments and target leakage described in
+            <a href="#uses">Things to know</a>, and split the data by year
+            rather than at random.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Can I use it for other climate studies?</summary>
+          <p>
+            Yes, within its scope: the February&ndash;June season, regional
+            means, and the variables listed above. It is not suited to studies
+            that need precipitation or gridded fields.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Is the dataset reproducible?</summary>
+          <p>
+            All sources are public, and every processing step is documented.
+            Processing details will be published with the dataset.
+          </p>
+        </details>
+        <details class="faq">
+          <summary>Where can I download it, and how do I cite it?</summary>
+          <p>
+            It is not yet released. Download and citation details will be
+            posted on this page at release.
+          </p>
+        </details>
+      </section> -->
+    </main>
+  </body>
+</html>
